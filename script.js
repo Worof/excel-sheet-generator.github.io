@@ -15,12 +15,27 @@ const generateTable = () => {
     }
     if(rowsNumber>0 && columnsNumber>0){
         tableExists = true
+    } else {
+        tableExists = false
+        swal({
+            title: "Fields Empty",
+            text: "Please enter a valid number of rows and columns.",
+            icon: "error",
+            button: "OK",
+          });
+          return;
     }
 }
 
 const ExportToExcel = (type, fn, dl) => {
     if(!tableExists){
-        return
+        swal({
+            title: "No Table Found",
+            text: "Please generate a table before attempting to export.",
+            icon: "error",
+            button: "OK",
+          });
+          return;
     }
     var elt = table
     var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" })
